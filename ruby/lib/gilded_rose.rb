@@ -10,6 +10,10 @@ class GildedRose
     self.items << item
   end
 
+  def increase_quality?(item)
+    return true if item.name == "cheese"
+  end
+
   def decrease_quality?(item)
     return false if item.name == "cheese"
     return false if item.name == "sulfuras"

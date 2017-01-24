@@ -17,6 +17,10 @@ describe GildedRose do
       expect(rose.decrease_quality?(cheese)).to be(false)
     end
 
+    it "should return true when checking if cheese should increase in quality" do
+      expect(rose.increase_quality?(cheese)).to be(true)
+    end
+
     it "should return false when checking whether sulfuras should decrease in quality" do
       expect(rose.decrease_quality?(sulfuras)).to be(false)
     end

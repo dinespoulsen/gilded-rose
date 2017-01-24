@@ -80,6 +80,12 @@ describe GildedRose do
         rose.add(sulfuras)
         expect{rose.update_quality}.not_to change{sulfuras.quality}
       end
+
+      it "should never let the quality of an item be negative" do
+        test = Item.new("test, Hand of Ragnaros", 10, 0)
+        rose.add(test)
+        expect{rose.update_quality}.not_to change{test.quality}
+      end
     end
   end
 

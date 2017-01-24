@@ -39,6 +39,21 @@ describe GildedRose do
       expect(rose.valid_quality?(test_item)).to be(true)
     end
 
+    it "should return true when quality is lower than 50" do
+      test_item = Item.new("test", 10, 49)
+      expect(rose.valid_quality?(test_item)).to be(true)
+    end
+
+    it "should return false when quality is 50 or higher" do
+      test_item = Item.new("test", 10, 50)
+      expect(rose.valid_quality?(test_item)).to be(false)
+    end
+
+    it "should return false when quality is 0 or lower" do
+      test_item = Item.new("test", 10, 0)
+      expect(rose.valid_quality?(test_item)).to be(false)
+    end
+
     context "when updating quality" do
 
       it "should decrease the quality of a random item" do

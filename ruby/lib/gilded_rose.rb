@@ -27,7 +27,8 @@ class GildedRose
   end
 
   def valid_quality?(item)
-    return true if item.quality > 0 && item.quality < MAX_QUALITY
+    return true if item.quality > 0 && item.quality < 50
+    return false
   end
 
   def update_quality

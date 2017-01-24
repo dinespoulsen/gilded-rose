@@ -26,6 +26,10 @@ class GildedRose
     return true
   end
 
+  def valid_quality?(item)
+    return true if item.quality > 0 && item.quality < MAX_QUALITY
+  end
+
   def update_quality
     @items.each do |item|
     if not_change?(item)

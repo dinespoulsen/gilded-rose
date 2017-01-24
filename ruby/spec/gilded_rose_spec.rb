@@ -39,16 +39,17 @@ describe GildedRose do
     end
 
     context "when updating quality" do
-      it "should increase the quality of the aged brie" do
-        brie = Item.new("Aged Brie", 10, 10)
-        rose.add(brie)
-        expect{rose.update_quality}.to change{brie.quality}.from(10).to(11)
-      end
 
       it "should decrease the quality of a random item" do
         test_item = Item.new("test", 10, 10)
         rose.add(test_item)
         expect{rose.update_quality}.to change{test_item.quality}.from(10).to(9)
+      end
+
+      it "should increase the quality of the aged brie" do
+        brie = Item.new("Aged Brie", 10, 10)
+        rose.add(brie)
+        expect{rose.update_quality}.to change{brie.quality}.from(10).to(11)
       end
 
       it "should increase the quality of a backstage pass with 1 when sell in is more than 10" do
@@ -82,9 +83,24 @@ describe GildedRose do
       end
 
       it "should never let the quality of an item be negative" do
-        test = Item.new("test, Hand of Ragnaros", 10, 0)
+        test = Item.new("test", 10, 0)
         rose.add(test)
         expect{rose.update_quality}.not_to change{test.quality}
+      end
+
+      it "should never let the quality of an item be more than 50" do
+        brie = Item.new("Aged Brie", 10, 50)
+        rose.add(brie)
+        expect{rose.update_quality}.not_to change{brie.quality}
+      end
+    end
+
+    context "when updating quality and sell in date has passed" do
+
+      it "should decrease the quality of a random item twice as fast" do
+        test_item = Item.new("test", 0, 10)
+        rose.add(test_item)
+        expect{rose.update_quality}.to change{test_item.quality}.from(10).to(8)
       end
     end
   end

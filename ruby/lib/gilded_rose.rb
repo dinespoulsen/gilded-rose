@@ -17,14 +17,15 @@ class GildedRose
 
   def decrease_quality?(item)
     return false if item.name == "Aged Brie"
-    return false if item.name == "Sulfuras, Hand of Ragnaros"
+    # return false if item.name == "Sulfuras, Hand of Ragnaros"
     return false if item.name == "Backstage passes to a TAFKAL80ETC concert"
+    return true
   end
 
   def update_quality
     @items.each do |item|
-      if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert"
-
+      # if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert"
+      if decrease_quality?(item)
         if item.quality > 0
           if item.name != "Sulfuras, Hand of Ragnaros"
             item.quality = item.quality - 1

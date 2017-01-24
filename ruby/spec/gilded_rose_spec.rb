@@ -102,6 +102,12 @@ describe GildedRose do
         rose.add(test_item)
         expect{rose.update_quality}.to change{test_item.quality}.from(10).to(8)
       end
+
+      it "should never let the quality of an item be negative" do
+        test_item = Item.new("test", 0, 1)
+        rose.add(test_item)
+        expect{rose.update_quality}.to change{test_item.quality}.from(1).to(0)
+      end
     end
   end
 

@@ -37,6 +37,14 @@ describe GildedRose do
     it "should return false when checking whether backstage passes should decrease in quality" do
       expect(rose.increase_quality?(backstage)).to be(true)
     end
+
+    context "when updating quality of a aged brie" do
+      it "should increase the quality of the aged brie" do
+        brie = Item.new("Aged brie", 10, 10)
+        rose.add(brie)
+        expect{rose.update_quality}.to change{brie.quality}.from(10).to(11)
+      end
+    end
   end
 
 end

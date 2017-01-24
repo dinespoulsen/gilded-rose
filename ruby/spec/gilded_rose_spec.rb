@@ -3,11 +3,14 @@ require "gilded_rose"
 
 describe GildedRose do
 
-  describe "#update_quality" do
-    it "does not change the name" do
-      items = [Item.new("foo", 0, 0)]
-      GildedRose.new(items).update_quality()
-      expect(items[0].name).to eq "foo"
+  subject(:rose) {described_class.new}
+  let(:cheese) {double(:cheese)}
+
+
+  describe "The Gilded Rose" do
+    it "should be able to add an item" do
+      rose.add(cheese)
+      expect(rose.items).to include(cheese)
     end
   end
 

@@ -1,6 +1,6 @@
 class GildedRose
 
-  def initialize(items)
+  def initialize(items = [])
     @items = items
   end
 

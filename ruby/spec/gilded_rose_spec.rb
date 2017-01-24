@@ -46,9 +46,33 @@ describe GildedRose do
       end
 
       it "should decrease the quality of a random item" do
-        brie = Item.new("test", 10, 10)
-        rose.add(brie)
-        expect{rose.update_quality}.to change{brie.quality}.from(10).to(9)
+        test_item = Item.new("test", 10, 10)
+        rose.add(test_item)
+        expect{rose.update_quality}.to change{test_item.quality}.from(10).to(9)
+      end
+
+      it "should increase the quality of a backstage pass with 1" do
+        backstage = Item.new("Backstage passes to a TAFKAL80ETC concert", 15, 10)
+        rose.add(backstage)
+        expect{rose.update_quality}.to change{backstage.quality}.from(10).to(11)
+      end
+
+      it "should increase the quality of a backstage pass with 2" do
+        backstage = Item.new("Backstage passes to a TAFKAL80ETC concert", 10, 10)
+        rose.add(backstage)
+        expect{rose.update_quality}.to change{backstage.quality}.from(10).to(12)
+      end
+
+      it "should increase the quality of a backstage pass with 3" do
+        backstage = Item.new("Backstage passes to a TAFKAL80ETC concert", 5, 10)
+        rose.add(backstage)
+        expect{rose.update_quality}.to change{backstage.quality}.from(10).to(13)
+      end
+
+      it "should not change the quality of a sulfuras" do
+        sulfuras = Item.new("Sulfuras, Hand of Ragnaros", 5, 10)
+        rose.add(sulfuras)
+        expect{rose.update_quality}.not_to change{sulfuras.quality}
       end
     end
   end

@@ -11,7 +11,7 @@ class GildedRose
   end
 
   def decrease_quality?(item)
-    
+    return false if item.name == "cheese"
   end
 
   def update_quality

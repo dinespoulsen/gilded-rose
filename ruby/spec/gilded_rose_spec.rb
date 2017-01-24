@@ -38,11 +38,17 @@ describe GildedRose do
       expect(rose.increase_quality?(backstage)).to be(true)
     end
 
-    context "when updating quality of a aged brie" do
+    context "when updating quality" do
       it "should increase the quality of the aged brie" do
-        brie = Item.new("Aged brie", 10, 10)
+        brie = Item.new("Aged Brie", 10, 10)
         rose.add(brie)
         expect{rose.update_quality}.to change{brie.quality}.from(10).to(11)
+      end
+
+      it "should decrease the quality of a random item" do
+        brie = Item.new("test", 10, 10)
+        rose.add(brie)
+        expect{rose.update_quality}.to change{brie.quality}.from(10).to(9)
       end
     end
   end

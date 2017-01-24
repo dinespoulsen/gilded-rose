@@ -51,22 +51,28 @@ describe GildedRose do
         expect{rose.update_quality}.to change{test_item.quality}.from(10).to(9)
       end
 
-      it "should increase the quality of a backstage pass with 1" do
+      it "should increase the quality of a backstage pass with 1 when sell in is more than 10" do
         backstage = Item.new("Backstage passes to a TAFKAL80ETC concert", 15, 10)
         rose.add(backstage)
         expect{rose.update_quality}.to change{backstage.quality}.from(10).to(11)
       end
 
-      it "should increase the quality of a backstage pass with 2" do
+      it "should increase the quality of a backstage pass with 2 when sell in 10 or less" do
         backstage = Item.new("Backstage passes to a TAFKAL80ETC concert", 10, 10)
         rose.add(backstage)
         expect{rose.update_quality}.to change{backstage.quality}.from(10).to(12)
       end
 
-      it "should increase the quality of a backstage pass with 3" do
+      it "should increase the quality of a backstage pass with 3 when sell in is 5 or less" do
         backstage = Item.new("Backstage passes to a TAFKAL80ETC concert", 5, 10)
         rose.add(backstage)
         expect{rose.update_quality}.to change{backstage.quality}.from(10).to(13)
+      end
+
+      it "should be zero quality for backstage pass when sell in is zero" do
+        backstage = Item.new("Backstage passes to a TAFKAL80ETC concert", 0, 10)
+        rose.add(backstage)
+        expect{rose.update_quality}.to change{backstage.quality}.from(10).to(0)
       end
 
       it "should not change the quality of a sulfuras" do

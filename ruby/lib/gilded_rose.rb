@@ -1,5 +1,6 @@
 class GildedRose
   attr_reader :items
+  MAX_QUALITY = 50
 
   def initialize(items = [])
     @items = items
@@ -9,7 +10,11 @@ class GildedRose
     self.items << item
   end
 
-  def update_quality()
+  def decrease_quality?(item)
+    
+  end
+
+  def update_quality
     @items.each do |item|
       if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert"
         if item.quality > 0
@@ -18,16 +23,16 @@ class GildedRose
           end
         end
       else
-        if item.quality < 50
+        if item.quality < MAX_QUALITY
           item.quality = item.quality + 1
           if item.name == "Backstage passes to a TAFKAL80ETC concert"
             if item.sell_in < 11
-              if item.quality < 50
+              if item.quality < MAX_QUALITY
                 item.quality = item.quality + 1
               end
             end
             if item.sell_in < 6
-              if item.quality < 50
+              if item.quality < MAX_QUALITY
                 item.quality = item.quality + 1
               end
             end
@@ -49,7 +54,7 @@ class GildedRose
             item.quality = item.quality - item.quality
           end
         else
-          if item.quality < 50
+          if item.quality < MAX_QUALITY
             item.quality = item.quality + 1
           end
         end
@@ -57,6 +62,8 @@ class GildedRose
     end
   end
 end
+
+
 
 # class Item
 #   attr_accessor :name, :sell_in, :quality

@@ -125,6 +125,24 @@ describe GildedRose do
         expect{rose.update_quality}.to change{test_item.quality}.from(1).to(0)
       end
     end
+
+    context "When increasing quality" do
+
+      it "should be able to hanlde aging brie" do
+        brie = Item.new("Aged Brie", 10, 10)
+        expect{rose.increase_quality(brie)}.to change{brie.quality}.from(10).to(11)
+      end
+
+      it "should be able to hanlde backstage pass when sell in value is less than 11" do
+        backstage = Item.new("Backstage passes to a TAFKAL80ETC concert", 10, 10)
+        expect{rose.increase_quality(backstage)}.to change{backstage.quality}.from(10).to(12)
+      end
+
+      it "should be able to hanlde backstage pass when sell in value is less than 6" do
+        backstage = Item.new("Backstage passes to a TAFKAL80ETC concert", 5, 10)
+        expect{rose.increase_quality(backstage)}.to change{backstage.quality}.from(10).to(13)
+      end
+    end
   end
 
 end

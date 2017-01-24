@@ -31,16 +31,21 @@ class GildedRose
     return false
   end
 
+  def increase_quality(item)
+    return item.quality += 3 if item.name == "Backstage passes to a TAFKAL80ETC concert" && item.sell_in < 6
+    return item.quality += 2 if item.name == "Backstage passes to a TAFKAL80ETC concert" && item.sell_in < 11
+    return item.quality += 1
+  end
+
   def update_quality
     @items.each do |item|
     if not_change?(item)
       return item
     else
       if decrease_quality?(item)
-        if item.quality > 0
+        if valid_quality?(item)
             item.quality = item.quality - 1
         end
-
       else
         if item.quality < MAX_QUALITY
           item.quality = item.quality + 1

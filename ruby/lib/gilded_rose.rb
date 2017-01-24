@@ -1,7 +1,12 @@
 class GildedRose
+  attr_reader :items
 
   def initialize(items = [])
     @items = items
+  end
+
+  def add(item)
+    self.items << item
   end
 
   def update_quality()

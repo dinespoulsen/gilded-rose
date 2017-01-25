@@ -158,6 +158,11 @@ describe GildedRose do
     end
 
     context "When decreaseing sell_in date" do
+      it "should return true if sell in date has passed" do
+        test = Item.new("test", -1, 10)
+        expect(rose.passed_sell_date?(test)).to be(true)
+      end
+
       it "should decrease handle a standard item" do
         test = Item.new("test", 10, 10)
         expect{rose.decrease_sell_in(test)}.to change{test.sell_in}.from(10).to(9)

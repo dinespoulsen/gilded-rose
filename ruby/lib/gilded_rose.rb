@@ -41,6 +41,10 @@ class GildedRose
     item.quality -= 1
   end
 
+  def passed_sell_date?(item)
+    item.sell_in < 0
+  end
+
   def decrease_sell_in(item)
     item.sell_in -= 1
   end

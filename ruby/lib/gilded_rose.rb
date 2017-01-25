@@ -2,8 +2,10 @@ class GildedRose
   attr_reader :items
   MAX_QUALITY = 50
   NAME_AGED_BRIE = "Aged Brie"
+  NAME_CONJURED = "Conjured"
   NAME_BACKSTAGE_PASS = "Backstage passes to a TAFKAL80ETC concert"
   NAME_SULFURAS = "Sulfuras, Hand of Ragnaros"
+  INCREASE_QUALITY = [NAME_AGED_BRIE, NAME_BACKSTAGE_PASS = "Backstage passes to a TAFKAL80ETC concert"]
 
   def initialize(items = [])
     @items = items
@@ -18,13 +20,11 @@ class GildedRose
   end
 
   def increase_quality?(item)
-    return true if item.name == NAME_AGED_BRIE
-    return true if item.name == NAME_BACKSTAGE_PASS
+    return true if INCREASE_QUALITY.include?(item.name)
   end
 
   def decrease_quality?(item)
-    return false if item.name == NAME_AGED_BRIE
-    return false if item.name == NAME_BACKSTAGE_PASS
+    return false if INCREASE_QUALITY.include?(item.name)
     return true
   end
 
@@ -34,16 +34,25 @@ class GildedRose
   end
 
   def increase_quality(item)
-    return item.quality -= item.quality if item.name == NAME_BACKSTAGE_PASS && passed_sell_date?(item)
-    return item.quality += 3 if item.name == NAME_BACKSTAGE_PASS && item.sell_in < 6
-    return item.quality += 2 if item.name == NAME_BACKSTAGE_PASS && item.sell_in < 11
-    return item.quality += 2 if passed_sell_date?(item)
-    return item.quality += 1
+    if valid_quality?(item)
+      return item.quality -= item.quality if item.name == NAME_BACKSTAGE_PASS && passed_sell_date?(item)
+      return item.quality += 3 if item.name == NAME_BACKSTAGE_PASS && item.sell_in < 6
+      return item.quality += 2 if item.name == NAME_BACKSTAGE_PASS && item.sell_in < 11
+      return item.quality += 2 if passed_sell_date?(item)
+      return item.quality += 1
+    else
+      return item
+    end
   end
 
   def decrease_quality(item)
-    return item.quality -= 2 if passed_sell_date?(item) && item.quality > 1
-    item.quality -= 1
+    if valid_quality?(item)
+      return item.quality -= 2 if item.name == NAME_CONJURED
+      return item.quality -= 2 if passed_sell_date?(item) && item.quality > 1
+      item.quality -= 1
+    else
+      return item
+    end
   end
 
   def passed_sell_date?(item)
@@ -62,13 +71,9 @@ class GildedRose
         return item
       else
         if decrease_quality?(item)
-          if valid_quality?(item)
-              decrease_quality(item)
-          end
+          decrease_quality(item)
         else
-          if valid_quality?(item)
-            increase_quality(item)
-          end
+          increase_quality(item)
         end
       end
     end

@@ -54,7 +54,7 @@ describe GildedRose do
       expect(rose.valid_quality?(test_item)).to be(false)
     end
 
-    context "when updating quality" do
+    context "when running the update_quality method" do
 
       it "should decrease the quality of a random item" do
         test_item = Item.new("test", 10, 10)
@@ -66,6 +66,12 @@ describe GildedRose do
         brie = Item.new("Aged Brie", 10, 10)
         rose.add(brie)
         expect{rose.update_quality}.to change{brie.quality}.from(10).to(11)
+      end
+
+      it "should increase the quality of the aged brie by two when sell in date has passed" do
+        brie = Item.new("Aged Brie", 0, 10)
+        rose.add(brie)
+        expect{rose.update_quality}.to change{brie.quality}.from(10).to(12)
       end
 
       it "should increase the quality of a backstage pass with 1 when sell in is more than 10" do
@@ -141,6 +147,20 @@ describe GildedRose do
       it "should be able to hanlde backstage pass when sell in value is less than 6" do
         backstage = Item.new("Backstage passes to a TAFKAL80ETC concert", 5, 10)
         expect{rose.increase_quality(backstage)}.to change{backstage.quality}.from(10).to(13)
+      end
+    end
+
+    context "When decreasing quality" do
+      it "should decrease by one" do
+        test = Item.new("test", 10, 10)
+        expect{rose.decrease_quality(test)}.to change{test.quality}.from(10).to(9)
+      end
+    end
+
+    context "When decreaseing sell_in date" do
+      it "should decrease handle a standard item" do
+        test = Item.new("test", 10, 10)
+        expect{rose.decrease_sell_in(test)}.to change{test.sell_in}.from(10).to(9)
       end
     end
   end

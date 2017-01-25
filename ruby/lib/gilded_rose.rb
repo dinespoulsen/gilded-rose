@@ -5,7 +5,7 @@ class GildedRose
   NAME_CONJURED = "Conjured"
   NAME_BACKSTAGE_PASS = "Backstage passes to a TAFKAL80ETC concert"
   NAME_SULFURAS = "Sulfuras, Hand of Ragnaros"
-  INCREASE_QUALITY = [NAME_AGED_BRIE, NAME_BACKSTAGE_PASS = "Backstage passes to a TAFKAL80ETC concert"]
+  INCREASE_QUALITY = [NAME_AGED_BRIE, NAME_BACKSTAGE_PASS]
 
   def initialize(items = [])
     @items = items
@@ -29,7 +29,7 @@ class GildedRose
   end
 
   def valid_quality?(item)
-    return true if item.quality > 0 && item.quality < 50
+    return true if item.quality > 0 && item.quality < MAX_QUALITY
     return false
   end
 

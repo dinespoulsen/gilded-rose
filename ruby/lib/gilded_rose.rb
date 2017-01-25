@@ -32,8 +32,10 @@ class GildedRose
   end
 
   def increase_quality(item)
+    return item.quality -= item.quality if item.name == "Backstage passes to a TAFKAL80ETC concert" && passed_sell_date?(item)
     return item.quality += 3 if item.name == "Backstage passes to a TAFKAL80ETC concert" && item.sell_in < 6
     return item.quality += 2 if item.name == "Backstage passes to a TAFKAL80ETC concert" && item.sell_in < 11
+    return item.quality += 2 if passed_sell_date?(item)
     return item.quality += 1
   end
 
@@ -76,7 +78,7 @@ class GildedRose
             end
         else
           if item.quality < MAX_QUALITY
-            item.quality = item.quality + 1
+            # item.quality = item.quality + 1
             if item.name == "Backstage passes to a TAFKAL80ETC concert"
               item.quality = item.quality - item.quality
             end

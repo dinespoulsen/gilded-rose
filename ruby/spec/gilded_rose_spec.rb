@@ -172,6 +172,16 @@ describe GildedRose do
         test = Item.new("test", 10, 10)
         expect{rose.decrease_sell_in(test)}.to change{test.sell_in}.from(10).to(9)
       end
+
+      it "should handle backstage pass when sell in date has passed" do
+        backstage = Item.new("Backstage passes to a TAFKAL80ETC concert", -1, 10)
+        expect{rose.increase_quality(backstage)}.to change{backstage.quality}.from(10).to(0)
+      end
+
+      it "should handle aged brie when sell in date has passed" do
+        brie = Item.new("Aged Brie", -1, 10)
+        expect{rose.increase_quality(brie)}.to change{brie.quality}.from(10).to(12)
+      end
     end
   end
 

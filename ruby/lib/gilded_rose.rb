@@ -47,6 +47,7 @@ class GildedRose
 
   def decrease_quality(item)
     if valid_quality?(item)
+      return item.quality -= 4 if item.name == NAME_CONJURED && passed_sell_date?(item)
       return item.quality -= 2 if item.name == NAME_CONJURED
       return item.quality -= 2 if passed_sell_date?(item) && item.quality > 1
       item.quality -= 1

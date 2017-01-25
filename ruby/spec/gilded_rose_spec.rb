@@ -189,6 +189,11 @@ describe GildedRose do
         conjured = Item.new("Conjured", 10, 10)
         expect{rose.decrease_quality(conjured)}.to change{conjured.quality}.from(10).to(8)
       end
+
+      it "should decrease quality by 4 when sell in has passed" do
+        conjured = Item.new("Conjured", -1, 10)
+        expect{rose.decrease_quality(conjured)}.to change{conjured.quality}.from(10).to(6)
+      end
     end
   end
 

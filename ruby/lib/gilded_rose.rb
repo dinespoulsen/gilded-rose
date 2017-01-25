@@ -52,6 +52,7 @@ class GildedRose
 
   def update_quality
     @items.each do |item|
+    item.sell_in = item.sell_in - 1
     if not_change?(item)
       return item
     else
@@ -66,22 +67,22 @@ class GildedRose
       end
     end
 
-    item.sell_in = item.sell_in - 1
+
     #to handle when sell_in goes below 0
-      if item.sell_in < 0
-        if item.name != "Aged Brie"
-          if item.name != "Backstage passes to a TAFKAL80ETC concert"
-            if item.quality > 0
-                item.quality = item.quality - 1
+      if passed_sell_date?(item)
+        if decrease_quality?(item)
+            if valid_quality?(item)
+                decrease_quality(item)
             end
-          else
-            item.quality = item.quality - item.quality
-          end
         else
           if item.quality < MAX_QUALITY
             item.quality = item.quality + 1
+            if item.name == "Backstage passes to a TAFKAL80ETC concert"
+              item.quality = item.quality - item.quality
+            end
           end
         end
+
       end
     end
   end

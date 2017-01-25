@@ -1,6 +1,9 @@
 class GildedRose
   attr_reader :items
   MAX_QUALITY = 50
+  NAME_AGED_BRIE = "Aged Brie"
+  NAME_BACKSTAGE_PASS = "Backstage passes to a TAFKAL80ETC concert"
+  NAME_SULFURAS = "Sulfuras, Hand of Ragnaros"
 
   def initialize(items = [])
     @items = items
@@ -11,18 +14,17 @@ class GildedRose
   end
 
   def not_change?(item)
-    return true if item.name == "Sulfuras, Hand of Ragnaros"
+    return true if item.name == NAME_SULFURAS
   end
 
   def increase_quality?(item)
-    return true if item.name == "Aged Brie"
-    return true if item.name == "Backstage passes to a TAFKAL80ETC concert"
+    return true if item.name == NAME_AGED_BRIE
+    return true if item.name == NAME_BACKSTAGE_PASS
   end
 
   def decrease_quality?(item)
-    return false if item.name == "Aged Brie"
-    # return false if item.name == "Sulfuras, Hand of Ragnaros"
-    return false if item.name == "Backstage passes to a TAFKAL80ETC concert"
+    return false if item.name == NAME_AGED_BRIE
+    return false if item.name == NAME_BACKSTAGE_PASS
     return true
   end
 
@@ -32,9 +34,9 @@ class GildedRose
   end
 
   def increase_quality(item)
-    return item.quality -= item.quality if item.name == "Backstage passes to a TAFKAL80ETC concert" && passed_sell_date?(item)
-    return item.quality += 3 if item.name == "Backstage passes to a TAFKAL80ETC concert" && item.sell_in < 6
-    return item.quality += 2 if item.name == "Backstage passes to a TAFKAL80ETC concert" && item.sell_in < 11
+    return item.quality -= item.quality if item.name == NAME_BACKSTAGE_PASS && passed_sell_date?(item)
+    return item.quality += 3 if item.name == NAME_BACKSTAGE_PASS && item.sell_in < 6
+    return item.quality += 2 if item.name == NAME_BACKSTAGE_PASS && item.sell_in < 11
     return item.quality += 2 if passed_sell_date?(item)
     return item.quality += 1
   end
@@ -71,20 +73,5 @@ class GildedRose
       end
     end
   end
+
 end
-
-
-
-# class Item
-#   attr_accessor :name, :sell_in, :quality
-#
-#   def initialize(name, sell_in, quality)
-#     @name = name
-#     @sell_in = sell_in
-#     @quality = quality
-#   end
-#
-#   def to_s()
-#     "#{@name}, #{@sell_in}, #{@quality}"
-#   end
-# end
